@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cpne6555cc3qa"
+path="res://.godot/imported/Mole digging.wav-fe892243b0c4fa83c6448d8822d70ce5.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Mole/Mole digging.wav"
+dest_files=["res://.godot/imported/Mole digging.wav-fe892243b0c4fa83c6448d8822d70ce5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

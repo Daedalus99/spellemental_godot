@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://d17k71n1mpo6t"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_k77ap"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_haeiw"]
+events = [SubResource("InputEventKey_k77ap")]
+
+[node name="Paused" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.021816675, 0.005500001, 0.05, 0.32156864)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = -88.0
+offset_right = 81.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="continueButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_haeiw")
+text = "Continue"
+
+[node name="settingsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_haeiw")
+text = "Settings"
+
+[node name="quitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_haeiw")
+text = "Quit"

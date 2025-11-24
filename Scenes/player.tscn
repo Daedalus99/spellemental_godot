@@ -1,0 +1,72 @@
+[gd_scene load_steps=16 format=3 uid="uid://cwytuwc6nvh24"]
+
+[ext_resource type="Script" uid="uid://dj6qun32nbjyj" path="res://Scripts/PlayerMovement.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://b81ob3ga3rgno" path="res://Scripts/PlayerCamera.gd" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://drr01p46lo7m4" path="res://PlayerAudio.gd" id="3_1jxqw"]
+[ext_resource type="AudioStream" uid="uid://blubo3kmtn128" path="res://Audio/SFX/Player/grass1.wav" id="3_sweqy"]
+[ext_resource type="AudioStream" uid="uid://bq4tfjiu6xsk5" path="res://Audio/SFX/Player/jumplanding.wav" id="4_1jxqw"]
+[ext_resource type="AudioStream" uid="uid://uvxdpdsfoq81" path="res://Audio/SFX/Player/grass2.wav" id="4_2hs0m"]
+[ext_resource type="AudioStream" uid="uid://dgbjem301tui7" path="res://Audio/SFX/Player/grass3.wav" id="5_1jxqw"]
+[ext_resource type="AudioStream" uid="uid://chrtjdummn2bv" path="res://Audio/SFX/Player/jumplanding4.wav" id="5_dw050"]
+[ext_resource type="AudioStream" uid="uid://doga4buqsdpsf" path="res://Audio/SFX/Player/grass4.wav" id="6_2hs0m"]
+[ext_resource type="AudioStream" uid="uid://bdc7s65hjdfok" path="res://Audio/SFX/Player/jumplanding3.wav" id="6_b26j0"]
+[ext_resource type="AudioStream" uid="uid://bp5shr4yocn2t" path="res://Audio/SFX/Player/jumplanding2.wav" id="7_n7ghd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hvuor"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dw050"]
+playback_mode = 1
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 4
+stream_0/stream = ExtResource("3_sweqy")
+stream_1/stream = ExtResource("4_2hs0m")
+stream_2/stream = ExtResource("5_1jxqw")
+stream_3/stream = ExtResource("6_2hs0m")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nvl01"]
+playback_mode = 1
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 4
+stream_0/stream = ExtResource("7_n7ghd")
+stream_1/stream = ExtResource("4_1jxqw")
+stream_2/stream = ExtResource("6_b26j0")
+stream_3/stream = ExtResource("5_dw050")
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_4flbx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_hvuor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_4flbx")
+
+[node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60788, 0)
+top_level = true
+script = ExtResource("2_onrkg")
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
+fov = 90.0
+
+[node name="CameraAnchor" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="AudioManager" type="Node" parent="."]
+script = ExtResource("3_1jxqw")
+
+[node name="FootstepStream" type="AudioStreamPlayer" parent="AudioManager"]
+stream = SubResource("AudioStreamRandomizer_dw050")
+volume_db = -50.0
+max_polyphony = 10
+
+[node name="JumpLandStream" type="AudioStreamPlayer" parent="AudioManager"]
+stream = SubResource("AudioStreamRandomizer_nvl01")
+volume_db = -50.0
+max_polyphony = 10

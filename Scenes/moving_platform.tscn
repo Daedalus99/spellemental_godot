@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsoc2qo8f7ot2"]
+
+[ext_resource type="Script" uid="uid://fyylwms64jvv" path="res://Scripts/moving_platform.gd" id="1_anqd2"]
+[ext_resource type="Texture2D" uid="uid://bsmfm8wqayarc" path="res://prototype_grid_blue.png" id="1_vvyo4"]
+
+[sub_resource type="Curve3D" id="Curve3D_vvyo4"]
+closed = true
+_data = {
+"points": PackedVector3Array(7.984132, 0, -0.008674145, -7.984132, 0, 0.008674145, -0.0024878979, 0, -7.998359, -0.0035185814, 0, -8.005224, 0.0035185814, 0, 8.005224, -7.9850836, 0, 0.02264179, -7.988376, 0, 0.019371986, 7.988376, 0, -0.019371986, 0.017163604, 0, 7.9994435, 0.020435333, 0, 7.9069753, -0.020435333, 0, -7.9069753, 8.009004, 0, 0.049198996),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_anqd2"]
+albedo_texture = ExtResource("1_vvyo4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tdwu5"]
+albedo_color = Color(0.71214, 0.31981, 0, 1)
+
+[node name="MovingPlatform" type="Path3D"]
+curve = SubResource("Curve3D_vvyo4")
+script = ExtResource("1_anqd2")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="."]
+transform = Transform3D(-0.0010863825, 0, 0.9999866, 0, 0.9999934, 0, -0.9999854, 0, -0.0010863838, -0.0024878979, 0, -7.998359)
+
+[node name="Platform" type="CSGBox3D" parent="PathFollow3D"]
+material_override = SubResource("StandardMaterial3D_anqd2")
+use_collision = true
+size = Vector3(5, 0.5, 5)
+material = SubResource("StandardMaterial3D_tdwu5")

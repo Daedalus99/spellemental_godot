@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://5oy7ekkbjq7t"
+path="res://.godot/imported/Death Scream 3.wav-b2d3eda9f1e16a2bef37f04b03d21ccb.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Victims/Death Scream 3.wav"
+dest_files=["res://.godot/imported/Death Scream 3.wav-b2d3eda9f1e16a2bef37f04b03d21ccb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

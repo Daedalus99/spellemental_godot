@@ -1,0 +1,147 @@
+[gd_scene load_steps=15 format=3 uid="uid://cn7i7f8uvubrw"]
+
+[ext_resource type="PackedScene" uid="uid://cwytuwc6nvh24" path="res://Scenes/player.tscn" id="1_eqhe0"]
+[ext_resource type="Texture2D" uid="uid://c3bilswalgf63" path="res://prototype_grid.png" id="1_hvuor"]
+[ext_resource type="Texture2D" uid="uid://cyegnlsffjwl4" path="res://prototype_grid_orange.png" id="2_i2arf"]
+[ext_resource type="Script" uid="uid://d0j34nadqlcjl" path="res://UIManager.gd" id="2_k77ap"]
+[ext_resource type="PackedScene" uid="uid://d17k71n1mpo6t" path="res://Scenes/UI/MenuPaused.tscn" id="3_b5kf5"]
+[ext_resource type="PackedScene" uid="uid://bgykbcgmvkj2i" path="res://Scenes/UI/MenuSettings.tscn" id="4_hvuor"]
+[ext_resource type="PackedScene" uid="uid://dsoc2qo8f7ot2" path="res://Scenes/moving_platform.tscn" id="7_x6js8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k77ap"]
+sky_top_color = Color(0.3149, 0.462858, 0.67, 1)
+sky_horizon_color = Color(0.644798, 0.674038, 0.716823, 1)
+ground_horizon_color = Color(0.644798, 0.674038, 0.716823, 1)
+
+[sub_resource type="Sky" id="Sky_haeiw"]
+sky_material = SubResource("ProceduralSkyMaterial_k77ap")
+
+[sub_resource type="Environment" id="Environment_b5kf5"]
+background_mode = 2
+sky = SubResource("Sky_haeiw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i2arf"]
+albedo_texture = ExtResource("1_hvuor")
+uv1_scale = Vector3(20, 20, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1kil2"]
+albedo_texture = ExtResource("2_i2arf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqhe0"]
+albedo_color = Color(0.71214, 0.31981, 0, 1)
+
+[sub_resource type="Shortcut" id="Shortcut_b5kf5"]
+
+[node name="World" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_color = Color(1, 0.978, 0.89, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_b5kf5")
+
+[node name="Ground" type="CSGBox3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.22014, 0)
+material_override = SubResource("StandardMaterial3D_i2arf")
+use_collision = true
+size = Vector3(100, 0.5, 100)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6564, 2.95706, -7.39563)
+material_override = SubResource("StandardMaterial3D_1kil2")
+use_collision = true
+size = Vector3(1.3551, 11.5157, 15.7913)
+material = SubResource("StandardMaterial3D_eqhe0")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5069, -1.75867, 14.2679)
+material_override = SubResource("StandardMaterial3D_1kil2")
+use_collision = true
+size = Vector3(11.5447, 4.18413, 7.7804)
+material = SubResource("StandardMaterial3D_eqhe0")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="WorldEnvironment"]
+transform = Transform3D(0.5933539, -0.1589887, 0.7890841, 0.25881904, 0.9659258, 0, -0.76219666, 0.20422998, 0.6142852, 10.503713, -1.5751767, -25.342701)
+material_override = SubResource("StandardMaterial3D_1kil2")
+use_collision = true
+size = Vector3(11.5447, 4.18413, 7.7804)
+material = SubResource("StandardMaterial3D_eqhe0")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="WorldEnvironment"]
+transform = Transform3D(0.5319865, -0.3071426, 0.7890841, 0.49999997, 0.8660254, 0, -0.6833668, 0.39454204, 0.6142852, 4.2190495, -0.87864804, -30.780499)
+material_override = SubResource("StandardMaterial3D_1kil2")
+use_collision = true
+size = Vector3(11.5447, 6.1765375, 7.7804)
+material = SubResource("StandardMaterial3D_eqhe0")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="WorldEnvironment"]
+transform = Transform3D(0.4343652, -0.43436515, 0.789084, 0.70710677, 0.7071067, 2.1073424e-08, -0.5579667, 0.55796665, 0.6142851, -2.8402307, 1.5224563, -35.289135)
+material_override = SubResource("StandardMaterial3D_1kil2")
+use_collision = true
+size = Vector3(11.5447, 4.2888303, 7.7804)
+material = SubResource("StandardMaterial3D_eqhe0")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4028, 0.370313, 7.78078)
+material_override = SubResource("StandardMaterial3D_1kil2")
+use_collision = true
+size = Vector3(7.55374, 6.14167, 7.7804)
+material = SubResource("StandardMaterial3D_eqhe0")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1076, 1.84655, 0.00391579)
+material_override = SubResource("StandardMaterial3D_1kil2")
+use_collision = true
+size = Vector3(3.31056, 9.09415, 3.40045)
+material = SubResource("StandardMaterial3D_eqhe0")
+
+[node name="Player" parent="." instance=ExtResource("1_eqhe0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94869, 0)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("2_k77ap")
+
+[node name="Paused" parent="UI" instance=ExtResource("3_b5kf5")]
+visible = false
+layout_mode = 1
+
+[node name="VBoxContainer" parent="UI/Paused" index="0"]
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="settingsButton" parent="UI/Paused/VBoxContainer" index="1"]
+shortcut = null
+
+[node name="quitButton" parent="UI/Paused/VBoxContainer" index="2"]
+shortcut = null
+
+[node name="Settings" parent="UI" instance=ExtResource("4_hvuor")]
+layout_mode = 0
+color = Color(0, 0.14, 0.07233333, 0.32156864)
+
+[node name="Button" parent="UI/Settings" index="0"]
+shortcut = SubResource("Shortcut_b5kf5")
+
+[node name="MovingPlatform" parent="." instance=ExtResource("7_x6js8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.862297, -0.34236264, -0.08694458)
+
+[connection signal="pressed" from="UI/Paused/VBoxContainer/continueButton" to="UI" method="close_menus"]
+[connection signal="pressed" from="UI/Paused/VBoxContainer/settingsButton" to="UI" method="open_menu" binds= ["settings"]]
+[connection signal="pressed" from="UI/Paused/VBoxContainer/quitButton" to="UI" method="quit_game"]
+[connection signal="pressed" from="UI/Settings/Button" to="UI" method="open_menu" binds= ["paused"]]
+
+[editable path="UI/Paused"]
+[editable path="UI/Settings"]

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dkdmp3ksctxsy"
+path="res://.godot/imported/Minigame Success.wav-8a63aea8b6d4ee128f16c9902e386651.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Minigame Success.wav"
+dest_files=["res://.godot/imported/Minigame Success.wav-8a63aea8b6d4ee128f16c9902e386651.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
