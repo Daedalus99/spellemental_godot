@@ -39,6 +39,12 @@ var t_bob = 0
 var cam_anchor_initial_pos: Vector3
 @onready var player_audio: PlayerAudio = $AudioManager
 
+#Strafe leaning
+const STRAFE_LEAN_MAX_DEG : float = 2
+const STRAFE_LEAN_REACTIVITY : float = 10
+const STRAFE_LEAN_SMOOTH: float = 10
+var strafe_lean_deg: float = 0
+
 func _ready() -> void:
 	cam_anchor_initial_pos = cam_anchor.position
 
@@ -81,6 +87,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not sliding and is_on_floor():
 		_headbob(delta)	
+	_strafe_lean(delta)
 	move_and_slide()
 
 func _headbob(delta: float) -> void:
@@ -104,6 +111,45 @@ func _headbob(delta: float) -> void:
 	if new_phase < prev_phase:
 		player_audio.step()
 		
+func _strafe_lean(delta: float) -> void:
+	# Disable leaning in states where it shouldn't happen, if you want
+	if _airborn() or sliding:
+		# ease back to 0 lean
+		var target_lean := 0.0
+		strafe_lean_deg = lerpf(strafe_lean_deg, target_lean, delta * STRAFE_LEAN_SMOOTH)
+		cam_anchor.rotation_degrees.z = strafe_lean_deg
+		return
+	# 1. Horizontal velocity (ignore y)
+	var horizontal_vel: Vector3 = velocity
+	horizontal_vel.y = 0.0
+
+	if horizontal_vel.length() < 0.1:
+		# No movement → ease lean back to 0
+		var target_lean := 0.0
+		strafe_lean_deg = lerpf(strafe_lean_deg, target_lean, delta * STRAFE_LEAN_SMOOTH)
+		cam_anchor.rotation_degrees.z = strafe_lean_deg
+		return
+
+	# 2. Player's local right direction (positive X)
+	var right_dir: Vector3 = -global_transform.basis.x.normalized()
+
+	# 3. Signed strafe speed: >0 = moving right, <0 = moving left
+	var strafe_speed: float = horizontal_vel.dot(right_dir)
+
+	# 4. Normalize into [-1, 1] range using a "reactivity" speed
+	var target_factor: float = clamp(strafe_speed / STRAFE_LEAN_REACTIVITY, -1.0, 1.0)
+
+	# 5. Target lean in degrees (you can invert sign if you want lean opposite direction)
+	var target_lean: float = STRAFE_LEAN_MAX_DEG * target_factor
+	# If you want to lean opposite to direction of motion:
+	# var target_lean: float = -STRAFE_LEAN_MAX_DEG * target_factor
+
+	# 6. Smooth interpolation
+	strafe_lean_deg = lerp(strafe_lean_deg, target_lean, delta * STRAFE_LEAN_SMOOTH)
+
+	# 7. Apply to cam anchor. Use rotation_degrees for degrees.
+	cam_anchor.rotation_degrees.z = strafe_lean_deg
+
 func _do_jump():
 	if not prev_grounded and is_on_floor():
 		player_audio.jumpland()
