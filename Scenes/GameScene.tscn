@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cn7i7f8uvubrw"]
+[gd_scene load_steps=17 format=3 uid="uid://cn7i7f8uvubrw"]
 
 [ext_resource type="PackedScene" uid="uid://cwytuwc6nvh24" path="res://Scenes/player.tscn" id="1_eqhe0"]
 [ext_resource type="Texture2D" uid="uid://c3bilswalgf63" path="res://prototype_grid.png" id="1_hvuor"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://d17k71n1mpo6t" path="res://Scenes/UI/MenuPaused.tscn" id="3_b5kf5"]
 [ext_resource type="PackedScene" uid="uid://bgykbcgmvkj2i" path="res://Scenes/UI/MenuSettings.tscn" id="4_hvuor"]
 [ext_resource type="PackedScene" uid="uid://dsoc2qo8f7ot2" path="res://Scenes/moving_platform.tscn" id="7_x6js8"]
+[ext_resource type="PackedScene" uid="uid://dv5lr85tmgph7" path="res://Scenes/ramp.tscn" id="8_lg2j6"]
+[ext_resource type="PackedScene" uid="uid://ck84w5wlnlpgc" path="res://Scenes/stairs.tscn" id="9_y30xb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k77ap"]
 sky_top_color = Color(0.3149, 0.462858, 0.67, 1)
@@ -137,6 +139,18 @@ shortcut = SubResource("Shortcut_b5kf5")
 
 [node name="MovingPlatform" parent="." instance=ExtResource("7_x6js8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.862297, -0.34236264, -0.08694458)
+
+[node name="Ramp" parent="." instance=ExtResource("8_lg2j6")]
+transform = Transform3D(9.084826, 0, 6.8411417, 0, 15.000001, 0, -11.935908, 0, 5.2070265, -16.722046, -0.97338694, -39.048172)
+
+[node name="Stairs2" parent="." instance=ExtResource("9_y30xb")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -9.142059, -0.99022055, 15.900757)
+
+[node name="Stairs4" parent="." instance=ExtResource("9_y30xb")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, -6.1420593, -0.9802413, 15.900757)
+
+[node name="Stairs3" parent="." instance=ExtResource("9_y30xb")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -14.142059, -0.98022604, 15.900757)
 
 [connection signal="pressed" from="UI/Paused/VBoxContainer/continueButton" to="UI" method="close_menus"]
 [connection signal="pressed" from="UI/Paused/VBoxContainer/settingsButton" to="UI" method="open_menu" binds= ["settings"]]
