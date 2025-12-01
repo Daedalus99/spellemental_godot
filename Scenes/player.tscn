@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cwytuwc6nvh24"]
+[gd_scene load_steps=19 format=3 uid="uid://cwytuwc6nvh24"]
 
 [ext_resource type="Script" uid="uid://dj6qun32nbjyj" path="res://Scripts/PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://b81ob3ga3rgno" path="res://Scripts/PlayerCamera.gd" id="2_onrkg"]
@@ -11,6 +11,12 @@
 [ext_resource type="AudioStream" uid="uid://doga4buqsdpsf" path="res://Audio/SFX/Player/grass4.wav" id="6_2hs0m"]
 [ext_resource type="AudioStream" uid="uid://bdc7s65hjdfok" path="res://Audio/SFX/Player/jumplanding3.wav" id="6_b26j0"]
 [ext_resource type="AudioStream" uid="uid://bp5shr4yocn2t" path="res://Audio/SFX/Player/jumplanding2.wav" id="7_n7ghd"]
+[ext_resource type="Texture2D" uid="uid://cyegnlsffjwl4" path="res://prototype_grid_orange.png" id="12_pu2lt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ukyrk"]
+albedo_texture = ExtResource("12_pu2lt")
+
+[sub_resource type="BoxMesh" id="BoxMesh_7dp3o"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hvuor"]
 
@@ -39,9 +45,18 @@ stream_3/stream = ExtResource("5_dw050")
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4flbx")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="PlayerEyeMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.65, 0, 0, 0, 0.155, 0, 0, 0, 0.825, 0, 1.610209, -0.10741666)
+material_override = SubResource("StandardMaterial3D_ukyrk")
+mesh = SubResource("BoxMesh_7dp3o")
+skeleton = NodePath("../..")
+
+[node name="PlayerCapsule" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_hvuor")
+skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -70,3 +85,8 @@ max_polyphony = 10
 stream = SubResource("AudioStreamRandomizer_nvl01")
 volume_db = -50.0
 max_polyphony = 10
+
+[node name="DownstairRaycast" type="RayCast3D" parent="."]
+
+[node name="UpstairRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6678362, -0.5144053)

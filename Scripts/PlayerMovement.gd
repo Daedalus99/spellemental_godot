@@ -11,6 +11,8 @@ const MOVE_SPEED = {"WALK": 10.0, "RUN": 20.0, "CROUCH": 5.0}
 const GROUND_ACCEL = 10.0
 const CROUCH_SPEED = 20.0
 const SLIDE_DRAG = 0.5
+var move_dir: Vector3
+var move_input: Vector2
 var move_accel
 var speed
 var crouching: bool = false
@@ -20,6 +22,7 @@ var crouch_val: float = 0
 
 # TODO: Add wall running on slopes between 75-105 degrees
 # TODO: decrease uphill walking speed until 45-50 degrees where the player can no longer walk upwards
+# TODO: Add walking on staircases
 
 # Jumping
 const JUMP_HEIGHT = 1.5
@@ -30,6 +33,11 @@ const JUMP_BUFF_TIME = 0.15
 var curr_coyote = 0
 var curr_jump_buff = 10.0
 var prev_grounded=false
+
+# Stair climbing
+const MAX_STAIR_HEIGHT := 0.7
+@onready var upstair_raycast: RayCast3D = $UpstairRaycast
+@onready var downstair_raycast: RayCast3D = $DownstairRaycast
 
 # Head bobbing
 const BOB_FREQ = 1.5
@@ -47,17 +55,20 @@ var strafe_lean_deg: float = 0
 
 func _ready() -> void:
 	cam_anchor_initial_pos = cam_anchor.position
+	upstair_raycast.position.y = MAX_STAIR_HEIGHT
+	upstair_raycast.target_position.y = -MAX_STAIR_HEIGHT
+	downstair_raycast.position.y = 0
+	downstair_raycast.target_position.y = -MAX_STAIR_HEIGHT
 
 func _physics_process(delta: float) -> void:
 	# Get movement input
-	var movement_input = Input.get_vector("walk_l", "walk_r", "walk_f", "walk_b")
-	var move_dir = (transform.basis * Vector3(movement_input.x, 0, movement_input.y)).normalized()
+	move_input = Input.get_vector("walk_l", "walk_r", "walk_f", "walk_b")
+	move_dir = (transform.basis * Vector3(move_input.x, 0, move_input.y)).normalized()
 
 	# Gravity and coyote time
 	if _airborn():
 		velocity.y -= gravity * delta
 		curr_coyote += delta
-		reparent(null)
 	else:
 		# reparent(get_floor_collider())
 		curr_coyote = 0
@@ -70,6 +81,7 @@ func _physics_process(delta: float) -> void:
 	move_accel = GROUND_ACCEL if is_on_floor() else AIR_STRAFE_SPEED
 	
 	_do_jump()
+	_do_stairclimb()
 	_do_crouch_slide(delta)
 	
 	# if you're airborne or crouch-sliding, don't lerp the speed unless you're inputting.
@@ -186,6 +198,17 @@ func _do_crouch_slide(delta):
 	
 	var target_scale = 0.5 if crouching else 1.0
 	scale.y = lerp(scale.y, target_scale, delta * CROUCH_SPEED)
+
+func _do_stairclimb():
+	# check if the raycast is colliding (there's a step in front of you)
+	upstair_raycast.position.x = move_input.x * 0.55
+	upstair_raycast.position.z = move_input.y * 0.55
+	
+	if upstair_raycast.is_colliding():
+		var step_height : float = (upstair_raycast.get_collision_point() - upstair_raycast.global_position).length()
+		if move_input.length() > 0.05:
+			position.y += step_height
+	pass
 
 func _airborn():
 	return not is_on_floor()
