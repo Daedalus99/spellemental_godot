@@ -11,6 +11,7 @@ const MOVE_SPEED = {"WALK": 10.0, "RUN": 20.0, "CROUCH": 5.0}
 const GROUND_ACCEL = 10.0
 const CROUCH_SPEED = 20.0
 const SLIDE_DRAG = 0.5
+const MAX_SLOPE_DEG := 45.0
 var move_dir: Vector3
 var move_input: Vector2
 var move_accel
@@ -200,12 +201,15 @@ func _do_crouch_slide(delta):
 	scale.y = lerp(scale.y, target_scale, delta * CROUCH_SPEED)
 
 func _do_stairclimb():
-	# check if the raycast is colliding (there's a step in front of you)
+	# rotate the raycast around the player in the direction of their input.
 	upstair_raycast.position.x = move_input.x * 0.55
 	upstair_raycast.position.z = move_input.y * 0.55
 	
+	# check if the raycast is colliding (there's a step in front of you)
 	if upstair_raycast.is_colliding():
 		var step_height : float = (upstair_raycast.get_collision_point() - upstair_raycast.global_position).length()
+		#TODO: also check that the step angle is not greater than the max slope angle, 
+		# but only if the slope is going up away from the player's movement?
 		if move_input.length() > 0.05:
 			position.y += step_height
 	pass

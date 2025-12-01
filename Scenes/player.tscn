@@ -87,6 +87,8 @@ volume_db = -50.0
 max_polyphony = 10
 
 [node name="DownstairRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, -0.7, 0)
 
 [node name="UpstairRaycast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6678362, -0.5144053)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.55)
+target_position = Vector3(0, -0.7, 0)
