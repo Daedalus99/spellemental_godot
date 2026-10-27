@@ -1,3 +1,4 @@
+# class_name PlayerController 
 extends CharacterBody3D
 
 const GRAVITY = 10.0
@@ -199,6 +200,10 @@ func _do_crouch_slide(delta):
 	
 	var target_scale = 0.5 if crouching else 1.0
 	scale.y = lerp(scale.y, target_scale, delta * CROUCH_SPEED)
+
+func _on_terrain_collision():
+	pass
+	
 
 func _do_stairclimb():
 	# rotate the raycast around the player in the direction of their input.

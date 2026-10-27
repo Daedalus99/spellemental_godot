@@ -1,14 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://cn7i7f8uvubrw"]
+[gd_scene format=3 uid="uid://cn7i7f8uvubrw"]
 
-[ext_resource type="PackedScene" uid="uid://cwytuwc6nvh24" path="res://Scenes/player.tscn" id="1_eqhe0"]
 [ext_resource type="Texture2D" uid="uid://c3bilswalgf63" path="res://prototype_grid.png" id="1_hvuor"]
 [ext_resource type="Texture2D" uid="uid://cyegnlsffjwl4" path="res://prototype_grid_orange.png" id="2_i2arf"]
 [ext_resource type="Script" uid="uid://d0j34nadqlcjl" path="res://UIManager.gd" id="2_k77ap"]
 [ext_resource type="PackedScene" uid="uid://d17k71n1mpo6t" path="res://Scenes/UI/MenuPaused.tscn" id="3_b5kf5"]
 [ext_resource type="PackedScene" uid="uid://bgykbcgmvkj2i" path="res://Scenes/UI/MenuSettings.tscn" id="4_hvuor"]
 [ext_resource type="PackedScene" uid="uid://dsoc2qo8f7ot2" path="res://Scenes/moving_platform.tscn" id="7_x6js8"]
-[ext_resource type="PackedScene" path="res://Scenes/ramp.tscn" id="8_lg2j6"]
-[ext_resource type="PackedScene" path="res://Scenes/stairs.tscn" id="9_y30xb"]
+[ext_resource type="PackedScene" uid="uid://dv5lr85tmgph7" path="res://Scenes/ramp.tscn" id="8_lg2j6"]
+[ext_resource type="PackedScene" uid="uid://ck84w5wlnlpgc" path="res://Scenes/stairs.tscn" id="9_y30xb"]
+[ext_resource type="PackedScene" uid="uid://c6ctv8v1lal0e" path="res://Scenes/awkward_stairs.tscn" id="10_xhjei"]
+[ext_resource type="PackedScene" uid="uid://b4f3csjwb0isn" path="res://Scenes/component_based_player.tscn" id="11_6vvcf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k77ap"]
 sky_top_color = Color(0.3149, 0.462858, 0.67, 1)
@@ -36,75 +37,72 @@ albedo_color = Color(0.71214, 0.31981, 0, 1)
 
 [sub_resource type="Shortcut" id="Shortcut_b5kf5"]
 
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" unique_id=1487328927]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=212395012]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 light_color = Color(1, 0.978, 0.89, 1)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1304553847]
 environment = SubResource("Environment_b5kf5")
 
-[node name="Ground" type="CSGBox3D" parent="WorldEnvironment"]
+[node name="Ground" type="CSGBox3D" parent="WorldEnvironment" unique_id=1355237681]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.22014, 0)
 material_override = SubResource("StandardMaterial3D_i2arf")
 use_collision = true
 size = Vector3(100, 0.5, 100)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="WorldEnvironment"]
+[node name="CSGBox3D" type="CSGBox3D" parent="WorldEnvironment" unique_id=1033295574]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6564, 2.95706, -7.39563)
 material_override = SubResource("StandardMaterial3D_1kil2")
 use_collision = true
 size = Vector3(1.3551, 11.5157, 15.7913)
 material = SubResource("StandardMaterial3D_eqhe0")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="WorldEnvironment"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="WorldEnvironment" unique_id=577002764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5069, -1.75867, 14.2679)
 material_override = SubResource("StandardMaterial3D_1kil2")
 use_collision = true
 size = Vector3(11.5447, 4.18413, 7.7804)
 material = SubResource("StandardMaterial3D_eqhe0")
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="WorldEnvironment"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="WorldEnvironment" unique_id=1397345745]
 transform = Transform3D(0.5933539, -0.1589887, 0.7890841, 0.25881904, 0.9659258, 0, -0.76219666, 0.20422998, 0.6142852, 10.503713, -1.5751767, -25.342701)
 material_override = SubResource("StandardMaterial3D_1kil2")
 use_collision = true
 size = Vector3(11.5447, 4.18413, 7.7804)
 material = SubResource("StandardMaterial3D_eqhe0")
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="WorldEnvironment"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="WorldEnvironment" unique_id=1329910800]
 transform = Transform3D(0.5319865, -0.3071426, 0.7890841, 0.49999997, 0.8660254, 0, -0.6833668, 0.39454204, 0.6142852, 4.2190495, -0.87864804, -30.780499)
 material_override = SubResource("StandardMaterial3D_1kil2")
 use_collision = true
 size = Vector3(11.5447, 6.1765375, 7.7804)
 material = SubResource("StandardMaterial3D_eqhe0")
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="WorldEnvironment"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="WorldEnvironment" unique_id=1006844252]
 transform = Transform3D(0.4343652, -0.43436515, 0.789084, 0.70710677, 0.7071067, 2.1073424e-08, -0.5579667, 0.55796665, 0.6142851, -2.8402307, 1.5224563, -35.289135)
 material_override = SubResource("StandardMaterial3D_1kil2")
 use_collision = true
 size = Vector3(11.5447, 4.2888303, 7.7804)
 material = SubResource("StandardMaterial3D_eqhe0")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="WorldEnvironment"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="WorldEnvironment" unique_id=539933510]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4028, 0.370313, 7.78078)
 material_override = SubResource("StandardMaterial3D_1kil2")
 use_collision = true
 size = Vector3(7.55374, 6.14167, 7.7804)
 material = SubResource("StandardMaterial3D_eqhe0")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="WorldEnvironment"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="WorldEnvironment" unique_id=1574855461]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1076, 1.84655, 0.00391579)
 material_override = SubResource("StandardMaterial3D_1kil2")
 use_collision = true
 size = Vector3(3.31056, 9.09415, 3.40045)
 material = SubResource("StandardMaterial3D_eqhe0")
 
-[node name="Player" parent="." instance=ExtResource("1_eqhe0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94869, 0)
-
-[node name="UI" type="Control" parent="."]
+[node name="UI" type="Control" parent="." unique_id=46698159]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,7 +114,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("2_k77ap")
 
-[node name="Paused" parent="UI" instance=ExtResource("3_b5kf5")]
+[node name="Paused" parent="UI" unique_id=603110722 instance=ExtResource("3_b5kf5")]
 visible = false
 layout_mode = 1
 
@@ -130,39 +128,45 @@ shortcut = null
 [node name="quitButton" parent="UI/Paused/VBoxContainer" index="2"]
 shortcut = null
 
-[node name="Settings" parent="UI" instance=ExtResource("4_hvuor")]
+[node name="Settings" parent="UI" unique_id=385997482 instance=ExtResource("4_hvuor")]
 layout_mode = 0
 color = Color(0, 0.14, 0.07233333, 0.32156864)
 
 [node name="Button" parent="UI/Settings" index="0"]
 shortcut = SubResource("Shortcut_b5kf5")
 
-[node name="MovingPlatform" parent="." instance=ExtResource("7_x6js8")]
+[node name="MovingPlatform" parent="." unique_id=1602703474 instance=ExtResource("7_x6js8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.862297, -0.34236264, -0.08694458)
 
-[node name="Ramp" parent="." instance=ExtResource("8_lg2j6")]
+[node name="Ramp" parent="." unique_id=1080053724 instance=ExtResource("8_lg2j6")]
 transform = Transform3D(9.084826, 0, 6.8411417, 0, 15.000001, 0, -11.935908, 0, 5.2070265, -16.722046, -0.97338694, -39.048172)
 
-[node name="Stairs2" parent="." instance=ExtResource("9_y30xb")]
+[node name="Stairs2" parent="." unique_id=2125955352 instance=ExtResource("9_y30xb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -9.142059, -0.99022055, 15.900757)
 
-[node name="Stairs8" parent="." instance=ExtResource("9_y30xb")]
+[node name="Stairs8" parent="." unique_id=8810085 instance=ExtResource("9_y30xb")]
 transform = Transform3D(-4.222196e-08, 1.131334e-08, -1, 0.25881904, 0.9659258, 0, 0.9659258, -0.25881904, -4.371139e-08, -19.728523, -1.0012335, 15.900757)
 
-[node name="Stairs7" parent="." instance=ExtResource("9_y30xb")]
+[node name="Stairs7" parent="." unique_id=140322151 instance=ExtResource("9_y30xb")]
 transform = Transform3D(-3.090862e-08, -3.090862e-08, -1, -0.70710677, 0.70710677, 0, 0.70710677, 0.70710677, -4.371139e-08, -17.55385, -0.97763765, 15.900757)
 
-[node name="Stairs5" parent="." instance=ExtResource("9_y30xb")]
+[node name="Stairs5" parent="." unique_id=679495593 instance=ExtResource("9_y30xb")]
 transform = Transform3D(-2.1855695e-07, 0, -1, 0, 1, 0, 5, 0, -4.371139e-08, -13.329706, -0.99022055, 15.900757)
 
-[node name="Stairs6" parent="." instance=ExtResource("9_y30xb")]
+[node name="Stairs6" parent="." unique_id=326378910 instance=ExtResource("9_y30xb")]
 transform = Transform3D(-2.1855694e-08, 0, -1, 0, 1, 0, 0.5, 0, -4.371139e-08, -15.465968, -0.99022055, 15.900757)
 
-[node name="Stairs4" parent="." instance=ExtResource("9_y30xb")]
+[node name="Stairs4" parent="." unique_id=979232467 instance=ExtResource("9_y30xb")]
 transform = Transform3D(-2.1855694e-08, 0, -1, 0, 0.5, 0, 0.5, 0, -4.371139e-08, -7.058605, -0.9802413, 15.900757)
 
-[node name="Stairs3" parent="." instance=ExtResource("9_y30xb")]
+[node name="Stairs3" parent="." unique_id=918928203 instance=ExtResource("9_y30xb")]
 transform = Transform3D(-8.742278e-08, 0, -1, 0, 2, 0, 2, 0, -4.371139e-08, -11.218675, -0.98022604, 15.900757)
+
+[node name="AwkwardStairs" parent="." unique_id=780116624 instance=ExtResource("10_xhjei")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -21.863844, -0.97681427, 15.8667755)
+
+[node name="ComponentBasedPlayer" parent="." unique_id=764406095 instance=ExtResource("11_6vvcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.83174276, 0.7716522, -1.4640636)
 
 [connection signal="pressed" from="UI/Paused/VBoxContainer/continueButton" to="UI" method="close_menus"]
 [connection signal="pressed" from="UI/Paused/VBoxContainer/settingsButton" to="UI" method="open_menu" binds= ["settings"]]
