@@ -17,3 +17,6 @@ func get_sprint_input() -> bool:
 	
 func get_crouch_input() -> bool:
 	return Input.is_action_pressed("crouch_slide")
+
+func get_prone_input() -> bool:
+	return Input.is_action_pressed("crawl")

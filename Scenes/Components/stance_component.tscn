@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dywuibgsoh3oo"]
+
+[ext_resource type="Script" uid="uid://bkvf351fixcb0" path="res://Scripts/Components/StanceComponent.gd" id="1_qbsnm"]
+
+[node name="StanceComponent" type="Node" unique_id=477635022]
+script = ExtResource("1_qbsnm")
+stance_change_speed = 1.0

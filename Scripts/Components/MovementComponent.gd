@@ -2,13 +2,15 @@ class_name MovementComponent
 extends Node
 
 @export_subgroup("Settings")
-@export var speed: float = 10
+@export var walk_speed: float = 10
+@export var sprint_speed: float = 20
 @export var ground_accel_speed: float = 6.0
 @export var ground_decel_speed: float = 8.0
 @export var air_accel_speed: float = 10.0
 @export var air_decel_speed: float = 3.0
 
-func handle_horizontal_movement(body: CharacterBody3D, direction: Vector2) -> void:
+# This function is intended to be called during the player controller's _physics_process()
+func handle_horizontal_movement(body: CharacterBody3D, direction: Vector2, wants_to_sprint: bool) -> void:
 	var dir_len = direction.length()
 	if dir_len >= 1:
 		direction = direction.normalized()
@@ -24,6 +26,11 @@ func handle_horizontal_movement(body: CharacterBody3D, direction: Vector2) -> vo
 		velocity_change_speed = ground_accel_speed if dir_len != 0 else ground_decel_speed
 	else:
 		velocity_change_speed = air_accel_speed if dir_len != 0 else air_decel_speed
+		
+	# Only sprint if you're mostly facing the direction of movement (dot product > 0)
+	var forward_dot := direction.normalized().dot(Vector2.UP)
+	var sprint := wants_to_sprint and forward_dot > 0		
+	var speed = sprint_speed if sprint else walk_speed
 		
 	# 3. Apply the rotated direction to X and Z velocities
 	body.velocity.x = move_toward(body.velocity.x, rotated_dir.x * speed, velocity_change_speed)

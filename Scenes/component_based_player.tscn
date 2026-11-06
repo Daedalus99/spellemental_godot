@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cdubjtx3eu0mo" path="res://Scenes/Components/input_component.tscn" id="3_yve0f"]
 [ext_resource type="PackedScene" uid="uid://c4f8by086gdph" path="res://Scenes/Components/advanced_jump_component.tscn" id="5_a8w7a"]
 [ext_resource type="PackedScene" uid="uid://108r6dgdusnf" path="res://Scenes/Components/mouse_capture_component.tscn" id="6_wh1ir"]
+[ext_resource type="PackedScene" uid="uid://dywuibgsoh3oo" path="res://Scenes/Components/stance_component.tscn" id="7_i88gm"]
 [ext_resource type="Script" uid="uid://b2ki7oswp38sr" path="res://Scripts/player/CameraController.gd" id="7_xl22d"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6shm3"]
@@ -17,13 +18,14 @@ albedo_color = Color(0, 0.75, 0.4625001, 1)
 
 [sub_resource type="PrismMesh" id="PrismMesh_6shm3"]
 
-[node name="ComponentBasedPlayer" type="CharacterBody3D" unique_id=764406095 node_paths=PackedStringArray("cam_controller", "gravity_component", "input_component", "movement_component", "jump_component")]
+[node name="ComponentBasedPlayer" type="CharacterBody3D" unique_id=764406095 node_paths=PackedStringArray("cam_controller", "gravity_component", "input_component", "movement_component", "jump_component", "stance_component")]
 script = ExtResource("1_yve0f")
 cam_controller = NodePath("CameraController")
 gravity_component = NodePath("Components/GravityComponent")
 input_component = NodePath("Components/InputComponent")
 movement_component = NodePath("Components/MovementComponent")
 jump_component = NodePath("Components/AdvancedJumpComponent")
+stance_component = NodePath("Components/StanceComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=430419773]
 shape = SubResource("CapsuleShape3D_6shm3")
@@ -42,6 +44,9 @@ metadata/_custom_type_script = "uid://dnjcl2b4ph077"
 [node name="AdvancedJumpComponent" parent="Components" unique_id=283412479 instance=ExtResource("5_a8w7a")]
 
 [node name="MouseCaptureComponent" parent="Components" unique_id=1179181293 instance=ExtResource("6_wh1ir")]
+
+[node name="StanceComponent" parent="Components" unique_id=477635022 instance=ExtResource("7_i88gm")]
+stance_change_speed = 10.0
 
 [node name="Visuals" type="Node3D" parent="." unique_id=1577993099]
 
