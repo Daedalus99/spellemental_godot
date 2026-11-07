@@ -9,27 +9,43 @@ enum Stance {STAND, CROUCH, PRONE}
 }
 
 @export var current_stance = Stance.STAND
-@export var stance_change_speed: float = 10.0
+@export_range(0.01, 2.0) var stance_change_duration: float = 0.3
+
+@onready var _target_stance: Stance = current_stance
+var _stance_tween: Tween
 @onready var current_scale: Vector3 = stance_scales.get(current_stance, Vector3.ONE)
 var original_scale: Vector3 = Vector3.ZERO
 
 # call this in _physics_process()
-func change_stance(body: CharacterBody3D, delta: float, stance: Stance):
-	# basically just set the og scale once at the start.
+func change_stance(
+	body: CharacterBody3D,
+	_delta: float,
+	stance: Stance
+) -> void:
 	if original_scale == Vector3.ZERO:
 		original_scale = body.scale
-		print("Original Scale is %s" %original_scale)
-		
-	if stance == current_stance:
+
+	# Avoid restarting the animation every physics tick.
+	if stance == _target_stance:
 		return
-		
-	var target_scale: Vector3 = original_scale * stance_scales.get(stance)
-	print("target: %s" %target_scale)
-	var weight := 1.0 - exp(-stance_change_speed * delta)
-	
-	# otherwise lerp height to stance height
-	body.scale = lerp(body.scale, target_scale, weight)
-	print("body Scale: %s" %body.scale)
-	if body.scale.is_equal_approx(target_scale):
-		print("Scale reached: %s" %body.scale)
-		current_stance = stance
+
+	_target_stance = stance
+
+	# Interrupt the previous transition at its current scale.
+	if _stance_tween != null and _stance_tween.is_valid():
+		_stance_tween.kill()
+
+	var target_scale: Vector3 = original_scale * stance_scales[stance]
+
+	_stance_tween = body.create_tween()
+	_stance_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	_stance_tween.set_trans(Tween.TRANS_CUBIC)
+	_stance_tween.set_ease(Tween.EASE_OUT)
+
+	_stance_tween.tween_property(
+		body, "scale", target_scale, stance_change_duration
+	)
+
+	_stance_tween.tween_callback(
+		func(): current_stance = stance
+	)

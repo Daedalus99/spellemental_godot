@@ -46,7 +46,6 @@ metadata/_custom_type_script = "uid://dnjcl2b4ph077"
 [node name="MouseCaptureComponent" parent="Components" unique_id=1179181293 instance=ExtResource("6_wh1ir")]
 
 [node name="StanceComponent" parent="Components" unique_id=477635022 instance=ExtResource("7_i88gm")]
-stance_change_speed = 10.0
 
 [node name="Visuals" type="Node3D" parent="." unique_id=1577993099]
 
