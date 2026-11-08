@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StanceSettings" format=3 uid="uid://cd0rpdhukbt27"]
+
+[ext_resource type="Script" uid="uid://bkkyg0i7p4h7j" path="res://Scripts/Resources/StanceSettings.gd" id="1_svfrm"]
+
+[resource]
+script = ExtResource("1_svfrm")
+id = &"prone"
+move_speed_mult = 0.235
+collider_scale = Vector3(1, 0.25, 1)
+blocked_abilities = Array[int]([2, 3])
+metadata/_custom_type_script = "uid://bkkyg0i7p4h7j"

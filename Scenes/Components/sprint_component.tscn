@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bkstse0rgk7ra"]
+
+[ext_resource type="Script" uid="uid://y5nc4kw4413v" path="res://Scripts/Components/SprintComponent.gd" id="1_v8r1t"]
+
+[node name="SprintComponent" type="Node" unique_id=868985585]
+script = ExtResource("1_v8r1t")

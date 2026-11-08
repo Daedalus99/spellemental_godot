@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="StanceSettings" format=3 uid="uid://bhhfp5ghlq01l"]
+
+[ext_resource type="Script" uid="uid://bkkyg0i7p4h7j" path="res://Scripts/Resources/StanceSettings.gd" id="1_73dkd"]
+
+[resource]
+script = ExtResource("1_73dkd")
+id = &"stand"
+metadata/_custom_type_script = "uid://bkkyg0i7p4h7j"

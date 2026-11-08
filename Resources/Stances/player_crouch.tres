@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StanceSettings" format=3 uid="uid://budy7wdpwpn6l"]
+
+[ext_resource type="Script" uid="uid://bkkyg0i7p4h7j" path="res://Scripts/Resources/StanceSettings.gd" id="1_xg1yc"]
+
+[resource]
+script = ExtResource("1_xg1yc")
+id = &"crouch"
+move_speed_mult = 0.5
+collider_scale = Vector3(1, 0.5, 1)
+blocked_abilities = Array[int]([2])
+metadata/_custom_type_script = "uid://bkkyg0i7p4h7j"

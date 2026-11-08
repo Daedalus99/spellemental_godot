@@ -13,7 +13,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _ready() -> void:
 	Input.mouse_mode = current_mouse_mode
 
-func consume_mouse_input():
+func consume_mouse_input() -> Vector2:
 	var input := _mouse_input
 	_mouse_input = Vector2.ZERO
 	return input
