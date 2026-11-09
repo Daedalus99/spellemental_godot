@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://bhhfp5ghlq01l" path="res://Resources/Stances/player_stand.tres" id="9_i4k1f"]
 [ext_resource type="Resource" uid="uid://budy7wdpwpn6l" path="res://Resources/Stances/player_crouch.tres" id="10_b0yse"]
 [ext_resource type="Resource" uid="uid://cd0rpdhukbt27" path="res://Resources/Stances/player_prone.tres" id="11_pue3h"]
+[ext_resource type="PackedScene" uid="uid://d3t5kkf7ejqn8" path="res://Scenes/Components/footstep_component.tscn" id="13_ieys1"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="14_01u45"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="15_ieys1"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="16_acwr7"]
@@ -62,6 +63,9 @@ stances = Array[ExtResource("8_i6xv0")]([ExtResource("9_i4k1f"), ExtResource("10
 stance_change_duration = 0.1
 
 [node name="SprintComponent" parent="Components" unique_id=868985585 instance=ExtResource("8_ey8fr")]
+
+[node name="FootstepComponent" parent="Components" unique_id=841380927 node_paths=PackedStringArray("enabled_states") instance=ExtResource("13_ieys1")]
+enabled_states = [NodePath("../../StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Walk"), NodePath("../../StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Sprint"), NodePath("../../StateChartRoot/Where/Wall/Wallrun")]
 
 [node name="Visuals" type="Node3D" parent="." unique_id=1577993099]
 
