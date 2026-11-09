@@ -64,8 +64,9 @@ stance_change_duration = 0.1
 
 [node name="SprintComponent" parent="Components" unique_id=868985585 instance=ExtResource("8_ey8fr")]
 
-[node name="FootstepComponent" parent="Components" unique_id=841380927 node_paths=PackedStringArray("enabled_states") instance=ExtResource("13_ieys1")]
+[node name="FootstepComponent" parent="Components" unique_id=841380927 node_paths=PackedStringArray("enabled_states", "foot_target") instance=ExtResource("13_ieys1")]
 enabled_states = [NodePath("../../StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Walk"), NodePath("../../StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Sprint"), NodePath("../../StateChartRoot/Where/Wall/Wallrun")]
+foot_target = NodePath("../../Visuals/FootstepAnchor")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=1577993099]
 
@@ -76,6 +77,9 @@ mesh = SubResource("CapsuleMesh_6shm3")
 transform = Transform3D(1.3658497e-15, -3.278354e-08, -0.75, -0.25, -3.2783543e-08, 0, -1.0927848e-08, 0.75, -3.278354e-08, 0, 0.5, -0.14875019)
 material_override = SubResource("StandardMaterial3D_ubfax")
 mesh = SubResource("PrismMesh_6shm3")
+
+[node name="FootstepAnchor" type="Node3D" parent="Visuals" unique_id=458174145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CameraController" type="Node3D" parent="." unique_id=1906546331 node_paths=PackedStringArray("player_controller", "mouse_capture_component")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4870026, 0)
