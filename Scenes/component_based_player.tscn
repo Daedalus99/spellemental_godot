@@ -13,6 +13,10 @@
 [ext_resource type="Resource" uid="uid://bhhfp5ghlq01l" path="res://Resources/Stances/player_stand.tres" id="9_i4k1f"]
 [ext_resource type="Resource" uid="uid://budy7wdpwpn6l" path="res://Resources/Stances/player_crouch.tres" id="10_b0yse"]
 [ext_resource type="Resource" uid="uid://cd0rpdhukbt27" path="res://Resources/Stances/player_prone.tres" id="11_pue3h"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="14_01u45"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="15_ieys1"]
+[ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="16_acwr7"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="17_2t4es"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6shm3"]
 
@@ -55,7 +59,7 @@ metadata/_custom_type_script = "uid://dnjcl2b4ph077"
 
 [node name="StanceComponent" parent="Components" unique_id=477635022 instance=ExtResource("7_i88gm")]
 stances = Array[ExtResource("8_i6xv0")]([ExtResource("9_i4k1f"), ExtResource("10_b0yse"), ExtResource("11_pue3h")])
-stance_change_duration = 0.09999999999999999
+stance_change_duration = 0.1
 
 [node name="SprintComponent" parent="Components" unique_id=868985585 instance=ExtResource("8_ey8fr")]
 
@@ -76,3 +80,117 @@ player_controller = NodePath("..")
 mouse_capture_component = NodePath("../Components/MouseCaptureComponent")
 
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=1969734716]
+
+[node name="StateChartRoot" type="Node" parent="." unique_id=2139558448]
+script = ExtResource("14_01u45")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Where" type="Node" parent="StateChartRoot" unique_id=1315129581]
+script = ExtResource("15_ieys1")
+initial_state = NodePath("Ground")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Ground" type="Node" parent="StateChartRoot/Where" unique_id=853557796]
+script = ExtResource("16_acwr7")
+metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
+
+[node name="Stance" type="Node" parent="StateChartRoot/Where/Ground" unique_id=1094524898]
+script = ExtResource("15_ieys1")
+initial_state = NodePath("Stand")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Stand" type="Node" parent="StateChartRoot/Where/Ground/Stance" unique_id=1053043139]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Crouch" type="Node" parent="StateChartRoot/Where/Ground/Stance" unique_id=1233645438]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Prone" type="Node" parent="StateChartRoot/Where/Ground/Stance" unique_id=1383764012]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="LocomotionGround" type="Node" parent="StateChartRoot/Where/Ground" unique_id=483127898]
+script = ExtResource("16_acwr7")
+metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
+
+[node name="Lean" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround" unique_id=601453544]
+script = ExtResource("15_ieys1")
+initial_state = NodePath("None")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Left" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/Lean" unique_id=1291002022]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="None" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/Lean" unique_id=260317799]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Right" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/Lean" unique_id=738313951]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="MoveGround" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround" unique_id=97374694]
+script = ExtResource("15_ieys1")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Idle" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/MoveGround" unique_id=1516638009]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Walk" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/MoveGround" unique_id=1009614633]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Sprint" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/MoveGround" unique_id=204411145]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Slide" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/MoveGround" unique_id=928591423]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Air" type="Node" parent="StateChartRoot/Where" unique_id=1261751952]
+script = ExtResource("15_ieys1")
+initial_state = NodePath("Zipline")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Freefall" type="Node" parent="StateChartRoot/Where/Air" unique_id=1286159066]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Jetpack" type="Node" parent="StateChartRoot/Where/Air" unique_id=18071071]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Glide" type="Node" parent="StateChartRoot/Where/Air" unique_id=1442806795]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Zipline" type="Node" parent="StateChartRoot/Where/Air" unique_id=583155728]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Wall" type="Node" parent="StateChartRoot/Where" unique_id=952145725]
+script = ExtResource("15_ieys1")
+initial_state = NodePath("Wallhang")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Wallrun" type="Node" parent="StateChartRoot/Where/Wall" unique_id=2132080075]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Climb" type="Node" parent="StateChartRoot/Where/Wall" unique_id=1025734171]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Wallhang" type="Node" parent="StateChartRoot/Where/Wall" unique_id=1679430176]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Mantle" type="Node" parent="StateChartRoot/Where/Wall" unique_id=361040422]
+script = ExtResource("17_2t4es")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
