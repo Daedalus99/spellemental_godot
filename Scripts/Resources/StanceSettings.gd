@@ -4,7 +4,7 @@ class_name StanceSettings extends Resource
 @export var move_speed_mult := 1.0
 @export var collider_scale := Vector3.ONE
 @export var transition_speed: float = 1.0
-@export var blocked_abilities: Array[AbilityIds.Ability] = []
+# @export var blocked_abilities: Array[AbilityIds.Ability] = []
 
 # func _init(
 # 	_id: StringName, 

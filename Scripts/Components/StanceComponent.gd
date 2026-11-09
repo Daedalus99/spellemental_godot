@@ -39,11 +39,11 @@ func get_stance(id: StringName) -> StanceSettings:
 func has_stance(id: StringName) -> bool:
 	return _stances_by_id.has(id)
 
-func allows_ability(ability: AbilityIds.Ability) -> bool:
-	var stance := get_stance(current_stance)
-	if stance == null:
-		return true
-	return not stance.blocked_abilities.has(ability)
+# func allows_ability(ability: AbilityIds.Ability) -> bool:
+# 	var stance := get_stance(current_stance)
+# 	if stance == null:
+# 		return true
+# 	return not stance.blocked_abilities.has(ability)
 
 # Returns the movement speed multiplier for the current stance.
 func get_speed_multiplier() -> float:
