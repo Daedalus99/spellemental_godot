@@ -25,14 +25,14 @@ func _play_audio_loop() -> void:
 		
 func _step() -> void:
 	step_sound.play()
-	print("STEP!")
+	# print("STEP!")
 
 func change_freq(new_freq: float) -> void:
 	step_freq = new_freq
 
 func should_play_loop() -> bool:
 	for state in enabled_states:
-		print("State %s is %s" %[state.name, state.active] )
+		# print("State %s is %s" %[state.name, state.active] )
 		if state.active:
 			return true
 		
