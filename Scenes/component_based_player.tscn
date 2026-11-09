@@ -358,6 +358,12 @@ to = NodePath("../../Sprint")
 event = &"move_sprint"
 delay_in_seconds = "0.0"
 
+[node name="ToAirborn" type="Node" parent="StateChartRoot/Where/Ground" unique_id=1388391544]
+script = ExtResource("19_acwr7")
+to = NodePath("../../Air")
+event = &"airborn"
+delay_in_seconds = "0.0"
+
 [node name="Air" type="Node" parent="StateChartRoot/Where" unique_id=1261751952]
 script = ExtResource("15_ieys1")
 initial_state = NodePath("Freefall")
@@ -378,6 +384,12 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 [node name="Zipline" type="Node" parent="StateChartRoot/Where/Air" unique_id=583155728]
 script = ExtResource("17_2t4es")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToGrounded" type="Node" parent="StateChartRoot/Where/Air" unique_id=317331404]
+script = ExtResource("19_acwr7")
+to = NodePath("../../Ground")
+event = &"grounded"
+delay_in_seconds = "0.0"
 
 [node name="Wall" type="Node" parent="StateChartRoot/Where" unique_id=952145725]
 script = ExtResource("15_ieys1")
@@ -400,6 +412,8 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 script = ExtResource("17_2t4es")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
+[connection signal="state_entered" from="StateChartRoot/Where/Ground" to="." method="_on_ground_state_entered"]
 [connection signal="state_entered" from="StateChartRoot/Where/Ground/Stance/Stand" to="." method="_on_stand_state_entered"]
 [connection signal="state_entered" from="StateChartRoot/Where/Ground/Stance/Crouch" to="." method="_on_crouch_state_entered"]
 [connection signal="state_entered" from="StateChartRoot/Where/Ground/Stance/Prone" to="." method="_on_prone_state_entered"]
+[connection signal="state_entered" from="StateChartRoot/Where/Air" to="." method="_on_air_state_entered"]
