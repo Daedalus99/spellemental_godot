@@ -36,12 +36,12 @@ albedo_color = Color(0, 0.75, 0.4625001, 1)
 
 [sub_resource type="Resource" id="Resource_hhukk"]
 script = ExtResource("22_jwxlr")
-state = NodePath("StateChartRoot/Where/Ground/Stance/Prone")
+state = NodePath("../../../MoveGround/Sprint")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_l6wg5"]
 script = ExtResource("22_jwxlr")
-state = NodePath("StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Sprint")
+state = NodePath("../../../../Stance/Prone")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_w6b78"]
@@ -51,12 +51,12 @@ metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 
 [sub_resource type="Resource" id="Resource_mu8jh"]
 script = ExtResource("22_jwxlr")
-state = NodePath("StateChartRoot/Where/Ground/Stance/Crouch")
+state = NodePath("../../../../Stance/Crouch")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_gqmvk"]
 script = ExtResource("22_jwxlr")
-state = NodePath("StateChartRoot/Where/Ground/Stance/Stand")
+state = NodePath("../../../../Stance/Stand")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_jwxlr"]
@@ -66,12 +66,12 @@ metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 
 [sub_resource type="Resource" id="Resource_upe7r"]
 script = ExtResource("22_jwxlr")
-state = NodePath("StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Walk")
+state = NodePath("../../../MoveGround/Walk")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_l61ew"]
 script = ExtResource("22_jwxlr")
-state = NodePath("StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Idle")
+state = NodePath("../../../MoveGround/Idle")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_11mqn"]
@@ -83,6 +83,11 @@ metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 script = ExtResource("24_jwxlr")
 guards = Array[ExtResource("21_tk5mf")]([SubResource("Resource_jwxlr"), SubResource("Resource_11mqn")])
 metadata/_custom_type_script = "uid://bxprlw40wl0c3"
+
+[sub_resource type="Resource" id="Resource_1unff"]
+script = ExtResource("22_jwxlr")
+state = NodePath("../../../../Stance/Stand")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [node name="ComponentBasedPlayer" type="CharacterBody3D" unique_id=764406095 node_paths=PackedStringArray("cam_controller", "gravity_component", "input_component", "movement_component", "jump_component", "stance_component", "sprint_component", "footstep_component")]
 script = ExtResource("1_yve0f")
@@ -296,6 +301,7 @@ delay_in_seconds = "0.0"
 script = ExtResource("19_acwr7")
 to = NodePath("../../Sprint")
 event = &"move_sprint"
+guard = SubResource("Resource_1unff")
 delay_in_seconds = "0.0"
 
 [node name="Walk" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/MoveGround" unique_id=1009614633]
@@ -312,6 +318,7 @@ delay_in_seconds = "0.0"
 script = ExtResource("19_acwr7")
 to = NodePath("../../Sprint")
 event = &"move_sprint"
+guard = SubResource("Resource_1unff")
 delay_in_seconds = "0.0"
 
 [node name="Sprint" type="Node" parent="StateChartRoot/Where/Ground/LocomotionGround/MoveGround" unique_id=204411145]
@@ -416,4 +423,6 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 [connection signal="state_entered" from="StateChartRoot/Where/Ground/Stance/Stand" to="." method="_on_stand_state_entered"]
 [connection signal="state_entered" from="StateChartRoot/Where/Ground/Stance/Crouch" to="." method="_on_crouch_state_entered"]
 [connection signal="state_entered" from="StateChartRoot/Where/Ground/Stance/Prone" to="." method="_on_prone_state_entered"]
+[connection signal="state_entered" from="StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Sprint" to="." method="_on_sprint_state_entered"]
+[connection signal="state_exited" from="StateChartRoot/Where/Ground/LocomotionGround/MoveGround/Sprint" to="." method="_on_sprint_state_exited"]
 [connection signal="state_entered" from="StateChartRoot/Where/Air" to="." method="_on_air_state_entered"]

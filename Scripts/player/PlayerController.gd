@@ -12,7 +12,7 @@ class_name PlayerController extends CharacterBody3D
 @export var sprint_component: SprintComponent
 @export var footstep_component: FootstepComponent
 
-var speed_mult := 1.0
+var speed_mults: Dictionary[StringName,float] = {}
 
 func _physics_process(delta: float) -> void:
 	if is_on_floor():
@@ -23,30 +23,26 @@ func _physics_process(delta: float) -> void:
 	# TODO: check if the 'Air' state is active
 	gravity_component.handle_gravity(self, delta)
 		
-	# reset speed multiplier every frame.
-	speed_mult = 1
-	
-
 	if input_component.get_prone_input():
 		state_chart.send_event(&"stance_prone")
 	elif input_component.get_crouch_input():
 		state_chart.send_event(&"stance_crouch")
 	else:
 		state_chart.send_event(&"stance_stand")
-	
-	#stance_component.change_stance(self, requested_stance)
-	speed_mult *= stance_component.get_speed_multiplier()
+	# Set the speed multiplier for whatever stnace we're in.
+	speed_mults[&"stance"] = stance_component.get_speed_multiplier()
 	
 	# Get sprinting. The last thing to get before handling movement?
 	var has_input := input_component.input_horizontal.length() > 0.1
 	if sprint_component.can_sprint(input_component.get_sprint_input(), input_component.input_horizontal):
-		speed_mult *= sprint_component.get_speed_mult()
 		state_chart.send_event(&"move_sprint")
 	elif has_input:
 		state_chart.send_event(&"move_walk")
 	else:
 		state_chart.send_event(&"move_idle")
 		
+	# this basically is like multiplying all mults together :)
+	var speed_mult: float = speed_mults.values().reduce(func(acc, n): return acc * n, 1)
 	movement_component.handle_horizontal_movement(
 		self, 
 		input_component.input_horizontal, 
@@ -76,6 +72,11 @@ func _on_crouch_state_entered() -> void:
 func _on_prone_state_entered() -> void:
 	stance_component.change_stance(self, &"prone")
 
+func _on_sprint_state_entered() -> void:
+	speed_mults[&"sprint"] = sprint_component.get_speed_mult()
+	
+func _on_sprint_state_exited() -> void: 
+	speed_mults.erase(&"sprint")
 
 ## "Where" Signals
 func _on_ground_state_entered() -> void:
