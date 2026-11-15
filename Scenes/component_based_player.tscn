@@ -100,10 +100,28 @@ stance_component = NodePath("Components/StanceComponent")
 sprint_component = NodePath("Components/SprintComponent")
 footstep_component = NodePath("Components/FootstepComponent")
 
-[node name="StateChartDebugger" parent="." unique_id=229964071 instance=ExtResource("21_50ut4")]
+[node name="Debug UI" type="Control" parent="." unique_id=731108604]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="StateChartDebugger" parent="Debug UI" unique_id=229964071 instance=ExtResource("21_50ut4")]
+layout_mode = 1
 offset_left = 684.0
 offset_bottom = -3.0
-initial_node_to_watch = NodePath("../StateChartRoot")
+initial_node_to_watch = NodePath("../../StateChartRoot")
+
+[node name="SpeedDisplay" type="RichTextLabel" parent="Debug UI" unique_id=1357930729]
+layout_mode = 0
+offset_right = 449.0
+offset_bottom = 52.0
+mouse_filter = 1
+text = "Velocity: 
+Speed: "
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=430419773]
 shape = SubResource("CapsuleShape3D_6shm3")
@@ -113,10 +131,13 @@ shape = SubResource("CapsuleShape3D_6shm3")
 [node name="GravityComponent" parent="Components" unique_id=388131662 instance=ExtResource("2_0j4bx")]
 gravity = 90.0
 
-[node name="MovementComponent" type="Node" parent="Components" unique_id=708628988]
+[node name="MovementComponent" type="Node" parent="Components" unique_id=708628988 node_paths=PackedStringArray("speed_display")]
 script = ExtResource("1_y0e55")
-air_accel_speed = 1.0
-air_decel_speed = 0.5
+air_accel_speed = 200.0
+air_decel_speed = 50.0
+max_air_speed = 200.0
+momentum_cancel_decel_speed = 100.0
+speed_display = NodePath("../../Debug UI/SpeedDisplay")
 metadata/_custom_type_script = "uid://dnjcl2b4ph077"
 
 [node name="InputComponent" parent="Components" unique_id=228851267 instance=ExtResource("3_yve0f")]
@@ -153,6 +174,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4870026, 0)
 script = ExtResource("7_xl22d")
 player_controller = NodePath("..")
 mouse_capture_component = NodePath("../Components/MouseCaptureComponent")
+tilt_lower_limit = null
+tilt_upper_limit = null
 
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=1969734716]
 

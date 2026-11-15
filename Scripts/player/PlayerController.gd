@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 		state_chart.send_event(&"airborn")
 		
 	# TODO: check if the 'Air' state is active
-	gravity_component.handle_gravity(self, delta)
+	# gravity_component.handle_gravity(self, delta)
 		
 	if input_component.get_prone_input():
 		state_chart.send_event(&"stance_prone")
@@ -45,6 +45,7 @@ func _physics_process(delta: float) -> void:
 	var speed_mult: float = speed_mults.values().reduce(func(acc, n): return acc * n, 1)
 	movement_component.handle_horizontal_movement(
 		self, 
+		delta,
 		input_component.input_horizontal, 
 		speed_mult
 	)
@@ -54,7 +55,11 @@ func _physics_process(delta: float) -> void:
 		input_component.get_jump_input(), 
 		input_component.get_jump_input_released()
 	)
-		
+	
+	if input_component.get_dash_input():
+		var look_dir: Vector3 = cam_controller.get_look_direction()
+		velocity += look_dir * 20
+	
 	move_and_slide()
 	
 func update_rotation(new_rotation: Vector3) -> void:

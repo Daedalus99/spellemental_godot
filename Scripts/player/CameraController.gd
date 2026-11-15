@@ -27,3 +27,6 @@ func update_camera_rotation(input: Vector2) -> void:
 # func update_camera_height(delta: float, direction: int) -> void:
 # 	if position.y >= crouch_offset and position.y <= DEFAULT_HEIGHT:
 # 		position.y = clampf(position.y + (crouch_speed * direction) * delta, crouch_offset, DEFAULT_HEIGHT)
+
+func get_look_direction() -> Vector3:
+	return -global_transform.basis.z.normalized()

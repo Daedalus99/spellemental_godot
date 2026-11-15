@@ -20,3 +20,6 @@ func get_crouch_input() -> bool:
 
 func get_prone_input() -> bool:
 	return Input.is_action_pressed("crawl")
+	
+func get_dash_input() -> bool:
+	return Input.is_action_just_pressed("dash")
